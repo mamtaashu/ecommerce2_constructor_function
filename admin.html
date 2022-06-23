@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ecommerce</title>
+</head>
+<body>
+    <a href="./product.html">Add Item</a>
+    <form on="form">
+
+        <input  type="text" id="name" placeholder="Name"/>
+        <input type="text" id="category" placeholder="Category">
+        <input type="url" id="image" placeholder="image url">
+        <input type="number" id="price" placeholder="price">
+        <select id="gender">
+            <option value="gender">GENDER</option>
+
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="transgender">transgender</option>
+        </select>
+        <select id="sold">
+            <option value="sold">SOLD</option>
+
+            <option value="true">TRUE</option>
+            <option value="false">FALSE</option>
+        </select>
+        <input type="submit"  id="add" >
+    </form>
+</body>
+
+
+
+
+<script>
+    function User(name,category,image,price,gender,sold=false){
+        this.name=name;
+        this.category=category;
+        this.image=image;
+        this.price=price;
+        this.gender=gender;
+        this.sold=sold;
+        
+    }
+   
+    // console.log(data)
+    var arr=JSON.parse(localStorage.getItem("products")) || []
+    var submit=document.querySelector("form").addEventListener("submit",function(){
+    event.preventDefault()
+        var data=new User(document.querySelector("#name").value,
+        document.querySelector("#category").value,
+        document.querySelector("#image").value,
+        document.querySelector("#price").value,
+        document.querySelector("#gender").value,
+        document.querySelector("#sold").value)
+    //    console.log(data);
+        arr.push(data)
+        localStorage.setItem("products",JSON.stringify(arr));
+    })
+</script>
+</html>
+</html>

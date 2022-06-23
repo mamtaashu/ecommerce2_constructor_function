@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: grid;
+            /* border: 1px solid black; */
+            /* gap:2vw; */
+        grid-template-columns: repeat(4,1fr);
+        padding: 20px;
+        gap: 20px;
+             
+        }
+        .div {
+            /* border: 1px solid red; */
+            /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+            height: 400px;
+        }
+        .div img{
+            height:100%;
+            width: 100%;
+           
+        }
+        .name{
+            text-align: center;
+            color: red;
+            font-weight: bold;
+             }
+           a{
+               padding-left: 1400px;
+           } 
+          
+
+
+    </style>
+</head>
+<body>
+    <a href="./admin.html">Add Item</a>
+    <div id="counter"></div>
+    <div id="container"></div>
+</body>
+<script>
+     var data=JSON.parse(localStorage.getItem("products"))
+    //  console.log(data)
+      document.querySelector("#counter").innerText="counter : "+data.length;
+    
+     function displayData(data){
+         document.querySelector("#container").innerHTML=""
+       data.forEach((product,productIndex)=>{
+           
+          
+           var div=document.createElement("div")
+           div.setAttribute("class","div")
+           var image=document.createElement("img");
+           image.src=product.image;
+
+
+           var name=document.createElement("p");
+           name.setAttribute("class","name")
+            name.innerText=product.name
+
+            var category=document.createElement("p");
+            category.setAttribute("class","name")
+            category.innerText=product.category
+
+            var price=document.createElement("p");
+            price.setAttribute("class","name")
+            price.innerText=product.price
+
+            var gender=document.createElement("p");
+            gender.setAttribute("class","name")
+         gender.innerText=product.gender
+
+         var remove=document.createElement("button");
+         remove.innerText="Remove";
+        
+           remove.addEventListener('click',function(){
+               data.splice(productIndex,1);
+               localStorage.setItem('products',JSON.stringify(data));
+               location.reload();
+           })
+
+         var sold=document.createElement("button");
+            sold.innerText="sold";
+            if(product.sold=="true")
+            {
+                sold.style.color="red"
+            }else{
+                sold.style.color="green"
+            }
+
+
+     div.append(image,name,category,price,gender,remove,sold);
+     document.querySelector("#container").append(div);
+
+       });  
+    }
+    displayData(data)
+    
+     
+     
+</script>
+</html>
